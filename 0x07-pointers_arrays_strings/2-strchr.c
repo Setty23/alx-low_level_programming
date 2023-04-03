@@ -7,6 +7,7 @@
   *
   * Return: the string from character found
   */
+
 char *_strchr(char *s, char c)
 {
 	int a = 0, b;
@@ -24,3 +25,6 @@ char *_strchr(char *s, char c)
 			return (s);
 		}
 	}
+
+	return ('\0');
+}
