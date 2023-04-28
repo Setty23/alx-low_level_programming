@@ -1,6 +1,5 @@
 	  global   start
           extern   printf
-         
           section  .text
 start:
 	  mov   edi, message
