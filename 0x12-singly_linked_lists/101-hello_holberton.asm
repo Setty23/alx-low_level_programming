@@ -3,8 +3,9 @@
 start:
 	  mov   edi, message
 	  xor   eax, eax
-	  mov   eax, 0
-          call  printf
+	  call  printf
+          mov   eax, 0
           ret
+
 message: db "Hello, Holberton\n", 0
 
