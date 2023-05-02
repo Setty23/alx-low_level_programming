@@ -5,35 +5,38 @@
  * listint_t linked list
  * @head: Double pointer of linked list listint_t
  * @index: Unsigned int index of the list where the new node should be deleted.
- * Index starts at 0
- * Return: 1 if success, -1 if failed
+ * Return: 1 (Success), or -1 (Fail)
  */
 
 int delete_nodeint_at_index(listint_t **head, unsigned int index)
 {
-	unsigned int i;
-	listint_t *temp, *next;
+	listint_t *temp_1 = *head;
+	listint_t *temp_2 = NULL;
+	unsigned int i = 0;
 
-	if (head == NULL || *head == NULL)
+	if (*head == NULL)
 		return (-1);
+
 	if (index == 0)
 	{
-		next = (*head)->next;
-		free(*head);
-		*head = next;
+		*head = (*head)->next;
+		free(temp_1);
 		return (1);
 	}
-	}
-	temp = *head;
-	for (i = 0; i < index - 1; i++)
-	{
-		if (temp->next == NULL)
-			return (-1);
-		temp = temp->next;
-	}
-	next = temp->next;
-	temp->next = next->next;
-	free(next);
-	return (1);
 
+	while (i < index - 1)
+	{
+		if (!temp_1 || !(temp_1->next))
+			return (-1);
+		temp_1 = temp_1->next;
+		i++;
+	}
+
+
+	temp_2 = temp_1->next;
+	temp_1->next = temp_2->next;
+	free(temp_2);
+
+	return (1);
 }
+
