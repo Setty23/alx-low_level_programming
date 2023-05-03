@@ -6,64 +6,78 @@
  *
  * Return: no return.
  */
-void free_listp(listp_t **head)
-{
-	listp_t *temp_1;
-	listp_t *temp_2;
 
-	if (head != NULL)
+size_t looped_listint_len(const listint_t *head)
+{
+	const listint_t *slow, *fast;
+	size_t count = 1;
+
+	if (head == NULL || head->next == NULL)
+		return (0);
+
+	slow = head->next;
+	fast = (head->next)->next;
+
+	while (fast)
 	{
-		temp _2 = *head;
-		while ((temp_1 = temp_2) != NULL)
+		if (slow == fast)
 		{
-			temp_2 = temp_2->next;
-			free(temp_1);
+			slow = head;
+			while (slow != fast)
+			{
+				slow = slow->next;
+				fast = fast->next;
+				count++;
+			}
+
+			slow = slow->next;
+			while (slow != fast)
+			{
+				fast = fast->next;
+			}
+
+			return (count);
 		}
-		*head = NULL;
+
+		slow = slow->next;
+		fast = (fast->next)->next;
 	}
+
+	return (0);
 }
 
 /**
- * print_listint_safe - prints a linked list.
- * @head: head of a list.
+ * print_listint_safe - Prints a listint_t list safely.
+ * @head: A pointer to the head of the listint_t list.
  *
- * Return: number of nodes in the list.
+ * Return: The number of nodes in the list.
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t i = 0;
-	listp_t *j, new, *add;
+	size_t count, index = 0;
 
-	j = NULL;
-	while (head != NULL)
+	count = looped_listint_len(head);
+
+	if (count  == 0)
 	{
-		new = malloc(sizeof(listp_t));
-
-		if (new == NULL)
-			exit(98);
-
-		new->p = (void *)head;
-		new->next = j;
-		j = new;
-
-		add = j;
-
-		while (add->next != NULL)
+		for (; fast != NULL; count++)
 		{
-			add = add->next;
-			if (head == add->p)
-			{
-				printf("-> [%p] %d\n", (void *)head, head->n);
-				free_listp(&j);
-				return (i);
-			}
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
 		}
-
-		printf("[%p] %d\n", (void *)head, head->n);
-		head = head->next;
-		i++;
 	}
 
-	free_listp(&j);
-	return (i);
+	else
+	{
+		for (index = 0; index < count; index++)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
+		}
+
+		printf("-> [%p] %d\n", (void *)head, head->n);
+	}
+
+	return (count);
 }
+
