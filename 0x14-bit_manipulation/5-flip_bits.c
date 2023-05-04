@@ -19,6 +19,7 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 	{
 		if (((m ^ n) >> i) & 1)
 			num++;
+
 	}
 	return (num);
 }
